@@ -37,7 +37,8 @@ function showBasicInfo() {
         })
     };
 
-// // inquirer
+// inquirer
+// what does customer whant and how many
 function userPrompts() {
 inquirer.prompt([
    {
@@ -52,19 +53,29 @@ inquirer.prompt([
    }
     ])
     .then(function(answer) {
-        connection.query("SELECT stock_quantity FROM products", 
+        connection.query("SELECT stock_quantity FROM products WHERE id='answer'", 
         function(err, res) {
-            if (err) throw err;
-            for (var i = 0; i < res.length; i++) {
-                if (answer >= 0) {
-                    proceedPurchase();
-                }
-                else {
-                    console.log("We're out of stock. Sorry!")
-                    // showBasicInfo();
-                };
+            if (answer >= 0) {
+                proceedPurchase();
             }
+            else {
+                console.log("We're out of stock of " + answer.buyWhat + ". Sorry!")
+                userPrompts();
+            };
         })
     });
+
+};
+
+function proceedPurchase() {
+    // delete number of items from stock_quantity
+    connection.query("SELECT",)
+
+
+
+    // update remaining stock_quantity
+
+    // show price
+    // console.log("Here are howMany buyWhat")
 
 };
