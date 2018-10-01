@@ -12,7 +12,7 @@ var connection = mysql.createConnection({
 connection.connect(function(err) {
 if (err) throw err;
 console.log("connected as id " + connection.threadId);
-// showBasicInfo();
+showBasicInfo();
 });
 
 // showAllInfo();
@@ -26,7 +26,7 @@ console.log("connected as id " + connection.threadId);
 //         })
 //     };
 
-showBasicInfo();
+// showBasicInfo();
 function showBasicInfo() {
     console.log("Welcome to Irene's Animal House!");
    connection.query("SELECT DISTINCT id, product_name, price FROM products", 
@@ -55,7 +55,7 @@ inquirer.prompt([
     .then(function(answer) {
         connection.query("SELECT stock_quantity FROM products WHERE id='answer'", 
         function(err, res) {
-            if (answer >= 0) {
+            if (res <= 10) {
                 proceedPurchase();
             }
             else {
@@ -69,7 +69,11 @@ inquirer.prompt([
 
 function proceedPurchase() {
     // delete number of items from stock_quantity
-    connection.query("SELECT",)
+    connection.query("DELETE stock_quantity FROM products WHERE id='answer'",
+    function(err, res) {
+        
+    }
+    )
 
 
 
