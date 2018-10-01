@@ -12,104 +12,61 @@ var connection = mysql.createConnection({
 connection.connect(function(err) {
 if (err) throw err;
 console.log("connected as id " + connection.threadId);
-showBasicInfo();
+customerExchange();
 });
 
-// showAllInfo();
-// function showAllInfo() {
-//     console.log("Welcome to Irene's Animal House!");
-//    connection.query("SELECT*FROM products", 
-//    function(err,res) {
-//        if(err) throw err;
-//        console.log(res);
-//        userPrompts();
-//         })
-//     };
+function customerExchange() {
+    console.log("Welcome to Irene's Animal House! Choose from an array of cats, dogs, and fish!");
 
-// showBasicInfo();
-function showBasicInfo() {
-    console.log("Welcome to Irene's Animal House!");
-   connection.query("SELECT DISTINCT id, product_name, price FROM products", 
-   function(err,res) {
-       if(err) throw err;
-       console.log(res);
-       userPrompts();
-        })
-    };
-
-// inquirer
-// what does customer want and how many
-// function userPrompts() {
-// inquirer.prompt([
-//    {
-//        type: "input",
-//        name: "buyWhat",
-//        message: "What would like to buy? Please use the ID."
-//    },
-//    {
-//        type: "input",
-//        name: "howMany",
-//        message: "How many would you like to buy?"
-//    }
-//     ])
-//     .then(function(answer) {
-//         connection.query("SELECT stock_quantity FROM products WHERE id='howMany'", 
-//         function(err, res) {
-//             if (answer <= 10) {
-//                 proceedPurchase();
-//             }
-//             else {
-                // console.log("We're out of stock of " + answer.buyWhat + ". Sorry!")
-                // userPrompts();
-//             };
-//         })
-//     });
-// };
-
-function userPrompts() {
     connection.query("SELECT*FROM products",
     function(err, res) {
         if (err) throw err;
 
-    inquirer.prompt([
-       {
-           type: "input",
-           name: "buyWhat",
-           message: "What would like to buy? Please use the ID."
-       },
-       {
-           type: "input",
-           name: "howMany",
-           message: "How many would you like to buy?"
-       }
+        inquirer.prompt([
+            {
+                // what can customer choose
+                name: "userChoice",
+                type: "list",
+                choices: function() {
+                    var choiceOptions = [];
+                    for (var i = 0; i < res.length; i++) {
+                        choiceOptions.push(res[i].product_name);
+                    }
+                    return choiceOptions;
+                },
+                message: "What would you like to buy?"
+            },
+            {
+                name: "quantity",
+                type: "input", 
+                message: "How many do you want?"
+            }
         ])
         .then(function(answer) {
-            // var buyWhat = answer.buyWhat;
-            // var howMany = answer.howMany;
-            if (answer.howMany <= 10) {
-                proceedPurchase();
-            }
-            else {
-                console.log("We're out of " + answer.buyWhat + ".");
-                userPrompts();
-            }
+            console.log(answer);
+            // what is chosen item?
+            connection.query("SELECT*FROM products WHERE product_name=?",
+                answer.userChoice, function(err, res){
+                    console.log(res);
+                    if (res[0].stock_quantity >= parseInt(answer.quantity)) {
+                        console.log("does the if work");
+                        connection.query("UPDATE products SET ? WHERE ?",
+                        {
+
+                        })
+                        // price goes here. only executes if enough stock
+                        
+                    }
+                    else {
+                        console.log("We don't have that many! SOrry!");
+                    }
+
+                }
+            )
+            // is chosen item in stock?
+
         });
-        })
-    };
 
-function proceedPurchase() {
-    // delete number of items from stock_quantity
-    connection.query("DELETE stock_quantity FROM products WHERE id='answer'",
-    function(err, res) {
-        
-    }
-    )
-
-
-
-    // update remaining stock_quantity
-
-    // show price
-    // console.log("Here are howMany buyWhat")
+    })
 
 };

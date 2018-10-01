@@ -16,35 +16,25 @@ customerExchange();
 });
 
 function customerExchange() {
-    console.log("Welcome to Irene's Animal House!");
+    console.log("Welcome to Irene's Animal House! Choose from an array of cats, dogs, and fish!");
 
     connection.query("SELECT*FROM products",
     function(err, res) {
         if (err) throw err;
-        showBasicInfo();
-
-        // show available products
-        function showBasicInfo() {
-           connection.query("SELECT DISTINCT id, product_name, price FROM products", 
-           function(err,res) {
-               if(err) throw err;
-               console.log(res);
-            //    userPrompts();
-                })
-            }
 
         inquirer.prompt([
             {
-                name: "product_id",
-                type: "input",
-                // choices: function() {
-                //     var choicesArray = [];
-                //     for (var i = 0; i < res.length; i++) {
-                //         choicesArray.push(res[i].product_name);
-                //     }
-                //     return choicesArray;
-                // },
-                message: "What would you like to buy? Please use the ID to order."
+                // what can customer choose
+                name: "userChoice",
+                type: "list",
+                choices: function() {
+                    var choiceOptions = [];
+                    for (var i = 0; i < res.length; i++) {
+                        choiceOptions.push(res[i].product_name);
+                    }
+                    return choiceOptions;
+                },
+                message: "What would you like to buy?"
             },
             {
                 name: "quantity",
@@ -53,11 +43,25 @@ function customerExchange() {
             }
         ])
         .then(function(answer) {
-            // need to figure out the chosen item
-            var chosenItem;
-            if (res[i].item_name === answer.choice) {
-                chosenItem = res[i];
-              }
+            console.log(answer);
+            // what is chosen item?
+            connection.query("SELECT*FROM products WHERE product_name=?",
+                answer.userChoice, function(err, res){
+                    console.log(res);
+                    if (res[0].stock_quantity >= parseInt(answer.quantity)) {
+                        console.log("does the if work");
+                        connection.query("UPDATE products SET ? WHERE ?",
+                        {
+
+                        })
+                        // price goes here. only executes if enough stock
+                    }
+                    else {
+                        console.log("Insufficnent Q");
+                    }
+
+                }
+            )
             // if (chosenItem.id <= parseInt(answer.))
 
             // is chosen item in stock?
