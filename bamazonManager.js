@@ -12,34 +12,34 @@ var connection = mysql.createConnection({
 connection.connect(function(err) {
 if (err) throw err;
 console.log("connected as id " + connection.threadId);
-addNewProduct();
+managerOptions();
 })
 
-// function managerOptions() {
-//     connection.query("SELECT*FROM products", 
-//     function(err, res) {
-//         if (err) throw err;
+function managerOptions() {
+    connection.query("SELECT*FROM products", 
+    function(err, res) {
+        if (err) throw err;
 
-//         inquirer.prompt([
-//             // manager's options
-//             {
-//             name: "managerOptions",
-//             type: "list",
-//             message: ["[VIEW] Products for Sale", "View [LOW] Inventory", "[ADD] to Inventory", "Add [NEW] Product"],
-//             choices: ["VIEW", "LOW", "ADD", "NEW"]
-//             }
-//             .then(function(answer) {
-//                 console.log(answer);
-//                 if (answer.managerOptions.toUpperCase() === "VIEW") {
-//                     viewProducts();
-//                 }
-//                 if (answer.managerOptions.toUpperCase() === "LOW") {
-//                     addNewProduct();
-//                 }
-//             })
-//         ])
-//     })
-// };
+        inquirer.prompt([
+            // manager's options
+            {
+            name: "managerOptions",
+            type: "list",
+            message: ["[VIEW] Products for Sale", " View [LOW] Inventory", " [ADD] to Inventory", " Add [NEW] Product"],
+            choices: ["VIEW", "LOW", "ADD", "NEW"]
+            }
+            ])
+            .then(function(answer) {
+                console.log(answer);
+                if (answer.managerOptions.toUpperCase() === "VIEW") {
+                    viewProducts();
+                }
+                if (answer.managerOptions.toUpperCase() === "ADD") {
+                    addNewProduct();
+                }
+            })
+    })
+};
 // end managerOptions();
 
 // viewProducts();
