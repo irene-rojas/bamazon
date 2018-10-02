@@ -14,7 +14,7 @@ This is the store's inventory when fully stocked.
 ![Image of bamazonDB](./images/1_bamazonDB.png)
 
 When the customer enters the store, they are asked to choose their item. 
-![Image of initial prompt](./images/2_2_bamazon_initial_prompt.png)
+![Image of initial prompt](./images/2_bamazon_initialPrompt.png)
 
 The sales associate asks how many of the items the customer would like. They then check the inventory to confirm there are enough of the items to fulfill the order.
 ![Image of customerExchange](./images/3_bamazon_customerExchange.png)
