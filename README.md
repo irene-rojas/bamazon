@@ -1,5 +1,5 @@
-# bamazon
-aka, Irene's Animal House
+## Irene's Animal House
+aka, bamazon
 
 This is a command-line project created for the fall 2018 full-stack web development class at George Washington University. 
 
@@ -9,7 +9,7 @@ I have attached screenshots of the game in progress.
 
 This is the store's inventory when fully stocked. 
 ![Image of bamazonDB]
-(./images/1_bamazonDB.png)
+("./images/1_bamazonDB.png")
 
 When the customer enters the store, they are asked to choose their item. 
 [Image of initial prompt]
