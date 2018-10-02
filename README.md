@@ -9,7 +9,7 @@ I have attached screenshots of the game in progress.
 
 This is the store's inventory when fully stocked. 
 ![Image of bamazonDB]
-<p><img src="./images/1_bamazonDB.png></p>
+(./images/1_bamazonDB.png)
 
 When the customer enters the store, they are asked to choose their item. 
 [Image of initial prompt]
