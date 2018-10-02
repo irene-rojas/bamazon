@@ -2,6 +2,7 @@
 aka, bamazon
 
 Requirements: pull the project repo and do "npm install"
+Dependencies: mysql, inquirer
 
 This is a command-line project created for the fall 2018 full-stack web development class at George Washington University. 
 
