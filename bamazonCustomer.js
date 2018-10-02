@@ -46,27 +46,34 @@ function customerExchange() {
             console.log(answer);
             // what is chosen item?
             connection.query("SELECT*FROM products WHERE product_name=?",
-                answer.userChoice, function(err, res){
+                answer.userChoice, 
+                function(err, res){
                     console.log(res);
                     if (res[0].stock_quantity >= parseInt(answer.quantity)) {
-                        console.log("does the if work");
+                        console.log("You're in luck. We have some in stock!");
                         connection.query("UPDATE products SET ? WHERE ?",
-                        {
-
-                        })
+                        [
+                            {
+                                stock_quantity: res[0].stock_quantity - answer.quantity
+                            },
+                            {
+                                product_name: answer.userChoice
+                            }
+                        ],
                         // price goes here. only executes if enough stock
-                        
+                        console.log("That will be $" + (res[0].price)*(answer.quantity) + ". Don't forget your pet supplies!")
+                        )
+                        console.log("Current inventory: " + (res[0].stock_quantity - answer.quantity));
+                        // customerExchange();
+                        connection.end();                        
                     }
                     else {
-                        console.log("We don't have that many! SOrry!");
+                        console.log("We don't have that many! Sorry!");
+                        customerExchange();
                     }
-
                 }
             )
-            // is chosen item in stock?
-
         });
-
     })
-
 };
+// end customerExchange();
