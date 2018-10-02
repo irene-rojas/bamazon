@@ -10,3 +10,12 @@ I have attached screenshots of the game in progress.
 This is the store's inventory when fully stocked. 
 ![Image of bamazonDB]
 (./images/1_bamazonDB.png)
+
+When the customer enters the store, they are asked to choose their item. 
+[Image of initial prompt]
+
+The sales associate asks how many of the items the customer would like. They then check the inventory to confirm there are enough of the items to fulfill the order.
+[image of customerExchange]
+
+In this example, I show what happens when a series of customers deplete an item's inventory. 
+[image of out of stock]
